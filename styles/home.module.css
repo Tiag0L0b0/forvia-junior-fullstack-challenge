@@ -1,0 +1,86 @@
+.formContainer {
+    margin-bottom: 24px;
+}
+
+.formGroup {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 8px;
+    margin-bottom: 8px;
+    align-items: center;
+}
+
+.formGroup.textareaGroup {
+    align-items: start;
+}
+
+.radioGroup {
+    display: flex;
+    gap: 16px;
+}
+
+.submitGroup {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 8px;
+}
+
+.input, .textarea {
+    width: 100%;
+}
+
+.textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+.projectCard {
+    border: 1px solid #ddd;
+    padding: 12px;
+    margin-bottom: 8px;
+    position: relative;
+    margin-top: 25px;
+}
+
+.cardButtons {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    display: flex;
+    gap: 8px;
+}
+
+.editButton, .deleteButton {
+    padding: 4px 8px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+
+.deleteButton {
+    background-color: #f44336;
+    color: white;
+}
+
+.divider {
+    margin: 32px 0;
+    border: none;
+    height: 1px;
+    background: black;
+}
+
+
+
+.buttonGroup {
+    display: flex;
+    gap: 16px;
+    justify-content: flex-end;
+    margin-top: 16px;
+}
+
+
+/*.editButton:hover {*/
+/*    background: #0056b3;*/
+/*}*/
+

@@ -1,6 +1,6 @@
 import { Project } from '../types/project';
 
-let projects: Project = [
+let projects: Project[] = [
   {
     id: '1',
     title: 'Dev Portfolio',
@@ -30,11 +30,13 @@ let projects: Project = [
 export const getProjects = () => projects;
 
 export const addProject = (p: Omit<Project, 'id' | 'createdAt'>) => {
+  const maxId = Math.max(...projects.map(p => parseInt(p.id)), 0);
   const newProj: Project = {
     ...p,
-    id: (projects.length + 1).toString(),
+    id: (maxId + 1).toString(),
     createdAt: new Date().toISOString(),
   };
+  console.log(newProj);
   projects.push(newProj);
   return newProj;
 };
@@ -45,6 +47,7 @@ export const updateProject = (id: string, data: Partial<Project>) => {
   projects[idx] = { ...projects[idx], ...data };
   return projects[idx];
 };
+
 
 export const deleteProject = (id: string) => {
   const idx = projects.findIndex((p) => p.id === id);

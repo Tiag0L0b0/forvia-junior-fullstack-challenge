@@ -7,9 +7,8 @@ export type Project = {
   createdAt: string;
 };
 
-
 export const Methods = {
-  GET: 'Get',
+  GET: 'GET',
   PUT: 'PUT',
   DELETE: 'DELETE',
   POST: 'POST',
