@@ -100,8 +100,6 @@ export default function Home() {
             />
             <h1>Dev Projects Tracker</h1>
 
-            {/* TODO: Improve the form styling and responsiveness */}
-
             <form onSubmit={handleSubmit} className={styles.formContainer}>
                 <div className={styles.formGroup}>
                     <label htmlFor="title">Title:</label>

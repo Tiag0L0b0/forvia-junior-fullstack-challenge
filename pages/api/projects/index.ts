@@ -4,7 +4,7 @@ import { Project, Methods } from '../../../types/project';
 
 export default function handler(req: NextApiRequest, res: NextApiResponse<Project | Project[] | { error: string }>) {
   if (req.method === Methods.GET) {
-    return res.status(200).json(getProjects()); // TODO: Placeholder for now, replace with getProjects()
+    return res.status(200).json(getProjects());
   }
 
   if (req.method === Methods.POST) {
