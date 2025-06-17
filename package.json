@@ -9,11 +9,12 @@
     "lint": "next lint",
     "test": "jest",
     "test:watch": "jest --watch"
-
   },
   "dependencies": {
     "next": "latest",
-    "react-dom": "latest"
+    "node-mocks-http": "^1.17.2",
+    "react-dom": "latest",
+    "react-hot-toast": "^2.5.2"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^6.6.3",

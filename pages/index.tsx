@@ -1,6 +1,7 @@
 import {useState, useEffect, FormEvent} from 'react';
 import {Project} from '../types/project';
 import styles from '../styles/home.module.css';
+import toast, {Toaster} from 'react-hot-toast';
 
 
 export default function Home() {
@@ -18,53 +19,85 @@ export default function Home() {
 
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
-        const res = await fetch('/api/projects', {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({...form, techStack: form.techStack.split(',').map((s: string) => s.trim())}),
-        });
-        if (res.ok) {
-            const newProject = await res.json();
-            setProjects((prev) => [...prev, newProject]);
-            setForm({title: '', description: '', status: 'Backlog', techStack: []});
+        try {
+            const res = await fetch('/api/projects', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({...form, techStack: form.techStack.split(',').map((s: string) => s.trim())}),
+            });
+            if (res.ok) {
+                const newProject = await res.json();
+                setProjects((prev) => [...prev, newProject]);
+                setForm({title: '', description: '', status: 'Backlog', techStack: []});
+                toast.success('Project added successfully!');
+            } else {
+                toast.error('Failed to add project');
+            }
+        } catch (error) {
+            toast.error('Error adding project');
         }
     };
 
     const handleEditSubmit = async (e: FormEvent, projectId: string) => {
         e.preventDefault();
-        const res = await fetch(`/api/projects/${projectId}`, {
-            method: 'PUT',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({...editForm, techStack: editForm.techStack.split(',').map((s: string) => s.trim())}),
-        });
-        if (res.ok) {
-            const updatedProject = await res.json();
-            setProjects(prev => prev.map(p =>
-                p.id === projectId ? updatedProject : p
-            ));
-            setEditingId(null);
-            setForm({
-                title: '',
-                description: '',
-                status: 'Backlog',
-                techStack: []
+        try {
+            const res = await fetch(`/api/projects/${projectId}`, {
+                method: 'PUT',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    ...editForm,
+                    techStack: editForm.techStack.split(',').map((s: string) => s.trim())
+                }),
             });
+            if (res.ok) {
+                const updatedProject = await res.json();
+                setProjects(prev => prev.map(p =>
+                    p.id === projectId ? updatedProject : p
+                ));
+                setEditingId(null);
+                setForm({
+                    title: '',
+                    description: '',
+                    status: 'Backlog',
+                    techStack: []
+                });
+                toast.success('Project updated successfully!');
+            } else {
+                toast.error('Failed to update project');
+            }
+        } catch (error) {
+            toast.error('Error updating project');
         }
     };
 
     const handleDelete = async (projectId: string) => {
-        const res = await fetch(`/api/projects/${projectId}`, {
-            method: 'DELETE',
-        });
-        if (res.ok) {
-            setProjects(prev => prev.filter(p => p.id !== projectId));
+        try {
+            const res = await fetch(`/api/projects/${projectId}`, {
+                method: 'DELETE',
+            });
+            if (res.ok) {
+                setProjects(prev => prev.filter(p => p.id !== projectId));
+                toast.success('Project deleted successfully!');
+            } else {
+                toast.error('Failed to delete project');
+            }
+        } catch (error) {
+            toast.error('Error deleting project');
         }
     };
 
 
-
     return (
         <main style={{maxWidth: 600, margin: '0 auto', padding: 16}}>
+            <Toaster position="top-right"
+                     toastOptions={{
+                duration: 3000,
+                style: {
+                    background: '#333',
+                    color: '#fff',
+                },
+            }}
+            />
             <h1>Dev Projects Tracker</h1>
 
             {/* TODO: Improve the form styling and responsiveness */}
@@ -146,11 +179,13 @@ export default function Home() {
 
                 <div className={styles.submitGroup}>
                     <div></div>
-                    <button type="submit">Add Project</button>
+                    <button type="submit" className={styles.addProjectButton
+                    }>➕ Add Project
+                    </button>
                 </div>
             </form>
 
-            <hr className={styles.divider} />
+            <hr className={styles.divider}/>
 
 
             {projects.map((p) => (
@@ -173,13 +208,13 @@ export default function Home() {
                                     });
                                 }}
                             >
-                                Edit
+                                ✏️
                             </button>
                             <button
                                 className={styles.deleteButton}
                                 onClick={() => handleDelete(p.id)}
                             >
-                                Delete
+                                🗑️
                             </button>
                         </div>
                     </div>

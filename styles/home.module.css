@@ -59,7 +59,7 @@
 
 
 .deleteButton {
-    background-color: #f44336;
+    background-color: #ff8a80;
     color: white;
 }
 
@@ -70,8 +70,6 @@
     background: black;
 }
 
-
-
 .buttonGroup {
     display: flex;
     gap: 16px;
@@ -79,8 +77,8 @@
     margin-top: 16px;
 }
 
-
-/*.editButton:hover {*/
-/*    background: #0056b3;*/
-/*}*/
+.addProjectButton {
+    background-color: #367d3a;
+    color: white;
+}
 

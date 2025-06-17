@@ -43,7 +43,7 @@ export const addProject = (p: Omit<Project, 'id' | 'createdAt'>) => {
 
 export const updateProject = (id: string, data: Partial<Project>) => {
   const idx = projects.findIndex((p) => p.id === id);
-  if (idx === -1) return null as any;
+  if (idx === -1) return null;
   projects[idx] = { ...projects[idx], ...data };
   return projects[idx];
 };
